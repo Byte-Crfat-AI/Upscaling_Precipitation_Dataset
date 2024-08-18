@@ -1,6 +1,6 @@
 # Super-Resolution Model using Deep Learning
 
-This project focuses on building a Super-Resolution (SR) model using a deep learning approach. The model aims to enhance the resolution of low-resolution images by leveraging a convolutional neural network (CNN) architecture, specifically a Residual Network (ResNet) combined with UpSampling layers. The model is designed to improve the resolution of the IMD gridded dataset.
+This project focuses on building a Super-Resolution (SR) model using a deep learning approach. The model aims to enhance the resolution of low-resolution images by leveraging a WGAN GP equipped with convolutional neural network (CNN) architecture, specifically a Residual Network (ResNet) combined with UpSampling layers. The model is designed to improve the resolution of the IMD gridded dataset.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -15,19 +15,10 @@ This project focuses on building a Super-Resolution (SR) model using a deep lear
 
 ## Project Overview
 
-The goal of this project is to enhance low-resolution images (1x1 km) to a higher resolution (0.25x0.25 km) using a Super-Resolution ResNet (SR ResNet). The project uses a dataset containing high-resolution and low-resolution images. The SR ResNet is trained to minimize the content loss between the generated high-resolution images and the actual high-resolution images.
+The goal of this project is to enhance low-resolution images (0.25x0.25 km) to a higher resolution (0.0625x0.0625 km) using a SR WGAN-GP. The project uses a dataset containing high-resolution and low-resolution precipitaion dataset. The SR WGAN-GP is trained to minimize the content loss between the generated high-resolution images and the actual high-resolution images.Generator is made to generate High Resolution Images giving the low resolution images as input.
 
 ## Model Architecture
-
-The model is based on a Residual Network (ResNet) architecture. The core idea is to build a deep network where each layer contributes to refining the high-resolution image. Key components of the architecture include:
-
-- **Convolutional Layers:** For extracting features from the images.
-- **Residual Blocks:** For maintaining important features across layers.
-- **Batch Normalization:** To stabilize and speed up training.
-- **Leaky ReLU Activation:** For introducing non-linearity.
-- **UpSampling Layers:** For scaling up the image resolution.
-- **Final Convolutional Layer:** To produce the final high-resolution image.
-
+![Model Architecture](.Architecture_IMD.png)
 ### Residual Block
 A residual block consists of:
 - A convolutional layer followed by batch normalization and LeakyReLU activation.
