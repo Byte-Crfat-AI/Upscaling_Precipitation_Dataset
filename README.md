@@ -4,6 +4,7 @@ This project focuses on building a Super-Resolution (SR) model using a deep lear
 
 ## Table of Contents
 - [Project Overview](#project-overview)
+- [Dataset](#dataset)
 - [Model Architecture](#model-architecture)
 - [Data Preprocessing](#data-preprocessing)
 - [Training](#training)
@@ -16,6 +17,11 @@ This project focuses on building a Super-Resolution (SR) model using a deep lear
 ## Project Overview
 
 The goal of this project is to enhance low-resolution images (0.25x0.25 km) to a higher resolution (0.0625x0.0625 km) using a SR WGAN-GP. The project uses a dataset containing high-resolution and low-resolution precipitaion dataset. The SR WGAN-GP is trained to minimize the content loss between the generated high-resolution images and the actual high-resolution images.Generator is made to generate High Resolution Images giving the low resolution images as input.
+
+## Dataset
+
+Low_resolution - https://imdpune.gov.in/cmpg/Griddata/Rainfall_1_NetCDF.html
+High_resolution  - https://imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html
 
 ## Model Architecture
 ![Model Architecture](./Architecture_IMD.png)
