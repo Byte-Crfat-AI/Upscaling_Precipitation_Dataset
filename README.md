@@ -18,7 +18,7 @@ This project focuses on building a Super-Resolution (SR) model using a deep lear
 The goal of this project is to enhance low-resolution images (0.25x0.25 km) to a higher resolution (0.0625x0.0625 km) using a SR WGAN-GP. The project uses a dataset containing high-resolution and low-resolution precipitaion dataset. The SR WGAN-GP is trained to minimize the content loss between the generated high-resolution images and the actual high-resolution images.Generator is made to generate High Resolution Images giving the low resolution images as input.
 
 ## Model Architecture
-![Model Architecture](.Architecture_IMD.png)
+![Model Architecture](./Architecture_IMD.png)
 ### Residual Block
 A residual block consists of:
 - A convolutional layer followed by batch normalization and LeakyReLU activation.
