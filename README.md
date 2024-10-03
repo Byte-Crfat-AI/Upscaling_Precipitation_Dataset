@@ -1,6 +1,6 @@
 # Super-Resolution Model using Deep Learning
 
-This project focuses on building a Super-Resolution (SR) model using a deep learning approach. The model aims to enhance the resolution of low-resolution images by leveraging a WGAN GP equipped with convolutional neural network (CNN) architecture, specifically a Residual Network (ResNet) combined with UpSampling layers. The model is designed to improve the resolution of the IMD gridded dataset.
+This project focuses on building a Super-Resolution (SR) model using a deep learning approach. The model aims to enhance the resolution of low-resolution images by leveraging a WGAN GP. The model is designed to improve the resolution of the IMD gridded dataset.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -24,7 +24,7 @@ Low_resolution - https://imdpune.gov.in/cmpg/Griddata/Rainfall_1_NetCDF.html
 High_resolution  - https://imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html
 
 ## Model Architecture
-![Model Architecture](./Architecture_IMD.png)
+![Model Architecture](.Upscaling_Precipitation_Dataset/Experimentation/Era1 without any evaluation metrics/Architecture_IMD.png)
 
 ## Data Preprocessing
 - The dataset contains high-resolution (HR) and low-resolution (LR) images.
