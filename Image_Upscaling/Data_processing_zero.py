@@ -49,18 +49,16 @@ class Data_Processing:
     
     @staticmethod
     def normalize_with_daily_max(SR_data, daily_max):
-        mask = np.isnan(SR_data[0])
-        mask = mask.astype('uint8') * 255
         SR = []
         for i in range(len(SR_data)):
             max_value = daily_max[i]
             if max_value != 0:
                 image = np.copy(SR_data[i])
                 image /= max_value
-                image = image.astype('float32')
-                dst = cv.inpaint(image, mask, 3, cv.INPAINT_TELEA)
-                dst = np.clip(dst, 0, 1)
-                SR.append(dst)
+                # dst = cv.inpaint(image, mask, 3, cv.INPAINT_TELEA)
+                # dst = np.clip(dst, 0, 1)
+                image[np.isnan(image)] = 0
+                SR.append(image)
         return SR
 
     
@@ -106,8 +104,8 @@ class Data_Processing:
     
     @staticmethod
     def visualize_LR_data(LR_data,label='Low Resolution Rainfall Data'):
-        lat1 = np.load('/kaggle/input/coordinates/1lat.npy')
-        lon1 = np.load('/kaggle/input/coordinates/1lon.npy')
+        lat1 = np.load('/kaggle/input/coordinates-imd/1lat.npy')
+        lon1 = np.load('/kaggle/input/coordinates-imd/1lon.npy')
         lon1 = lon1[1:-1]
         print(len(lat1),len(lon1))
         print(LR_data.shape)
@@ -122,8 +120,8 @@ class Data_Processing:
     
     @staticmethod
     def visualize_SR_data(SR_data,label='High Resolution Rainfall Data'):
-        lat25 = np.load('/kaggle/input/coordinates/0.25lat.npy')
-        lon25 = np.load('/kaggle/input/coordinates/0.25lon.npy')
+        lat25 = np.load('/kaggle/input/coordinates-imd/0.25lat.npy')
+        lon25 = np.load('/kaggle/input/coordinates-imd/0.25lon.npy')
         lon25 = lon25[4:-4]
         print(len(lat25),len(lon25))
         plt.figure(figsize=(10, 6))
@@ -139,8 +137,8 @@ class Data_Processing:
     def visualize_LR_masked_data(LR_data,mask,label='unmasked Low Resolution Rainfall Data'):
         rainfall = np.copy(LR_data)
         rainfall[mask] = np.nan
-        lat1 = np.load('/kaggle/input/coordinates/1lat.npy')
-        lon1 = np.load('/kaggle/input/coordinates/1lon.npy')
+        lat1 = np.load('/kaggle/input/coordinates-imd/1lat.npy')
+        lon1 = np.load('/kaggle/input/coordinates-imd/1lon.npy')
         lon1 = lon1[1:-1]
         print(len(lat1),len(lon1))
         print(LR_data.shape)
@@ -157,8 +155,8 @@ class Data_Processing:
     def visualize_SR_masked_data(SR_data,mask,label = 'unmasked High Resolution Rainfall Data'):
         rainfall = np.copy(SR_data)
         rainfall[mask] = np.nan
-        lat25 = np.load('/kaggle/input/coordinates/0.25lat.npy')
-        lon25 = np.load('/kaggle/input/coordinates/0.25lon.npy')
+        lat25 = np.load('/kaggle/input/coordinates-imd/0.25lat.npy')
+        lon25 = np.load('/kaggle/input/coordinates-imd/0.25lon.npy')
         lon25 = lon25[4:-4]
         print(len(lat25),len(lon25))
         plt.figure(figsize=(10, 6))
@@ -178,8 +176,8 @@ class Data_Processing:
         array = np.copy(generated[0])
         mask = np.isnan(upsampled_image)
         array[mask] = np.nan
-        lat25 = np.load('/kaggle/input/coordinates/0.25lat.npy')
-        lon25 = np.load('/kaggle/input/coordinates/0.25lon.npy')
+        lat25 = np.load('/kaggle/input/coordinates-imd/0.25lat.npy')
+        lon25 = np.load('/kaggle/input/coordinates-imd/0.25lon.npy')
         lon = np.arange(len(lon25) * 4)
         lat = np.arange(len(lat25) * 4)
         X_SR, Y_SR = np.meshgrid(lon, lat)
