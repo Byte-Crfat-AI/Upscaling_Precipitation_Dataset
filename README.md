@@ -24,7 +24,7 @@ Low_resolution - https://imdpune.gov.in/cmpg/Griddata/Rainfall_1_NetCDF.html
 High_resolution  - https://imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html
 
 ## Model Architecture
-![Model Architecture](.Upscaling_Precipitation_Dataset/Experimentation/Era1 without any evaluation metrics/Architecture_IMD.png)
+![Model Architecture](./Final_architecture_IMD_precip.png)
 
 ## Data Preprocessing
 - The dataset contains high-resolution (HR) and low-resolution (LR) images.
