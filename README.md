@@ -33,8 +33,8 @@ High_resolution  - https://imdpune.gov.in/cmpg/Griddata/Rainfall_25_NetCDF.html
 ## Training
 
 - **Loss Function:** The model is trained using a combination of Adversarial loss and Perceptual loss (Feature Extractor) for generator and Wasserstein loss with GP for discriminator.
-- **Optimizer:** The Adam optimizer is used with a learning rate of `1e-5`.
-- **Training Process:** The model is trained for a set number of epochs, with the learning rate being reduced on the plateau to fine-tune the model.
+- **Optimizer:** The Adam optimizer is used with a learning rate of `5e-4` for generator and `1e-3` for discriminator.
+- **Training Process:** Trained the model in steps, each step consisting of five epochs
 
 ## Evaluation
 
@@ -45,6 +45,7 @@ The model is evaluated based on:
 ## Results
 
 The trained SR WGAN-GP model significantly enhances the resolution of the low-resolution images. The results are evaluated using PSNR and SSIM, demonstrating the model's ability to reconstruct high-quality images.
+### Achieved a PSNR 30+ and an SSIM of 90+
 
 ## Dependencies
 
@@ -52,5 +53,9 @@ The trained SR WGAN-GP model significantly enhances the resolution of the low-re
 - Keras
 - NumPy
 - Matplotlib
+- os
+- cv
+- pydot
+- sys (for importing custom library)
 - Pickle (for loading datasets)
 - scikit-image (for calculating PSNR and SSIM)
