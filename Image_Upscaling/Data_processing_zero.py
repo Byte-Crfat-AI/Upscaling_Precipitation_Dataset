@@ -100,7 +100,11 @@ class Data_Processing:
         SR_mask = np.isnan(SR_data)
         LR = Data_Processing.Generating_Low_resolution_data(SR_data)
         LR_mask = np.isnan(LR)
-        return SR_mask, LR_mask
+        upsampled_image = tf.keras.layers.UpSampling2D(size=(2, 2))(SR_data[0].reshape((1, 128, 128, 1)))
+        upsampled_image = tf.keras.layers.UpSampling2D(size=(2, 2))(upsampled_image)
+        upsampled_image_np = upsampled_image.numpy()
+        HR_mask = np.isnan(upsampled_image_np)
+        return SR_mask, LR_mask,HR_mask
     
     @staticmethod
     def visualize_LR_data(LR_data,label='Low Resolution Rainfall Data'):
@@ -187,6 +191,51 @@ class Data_Processing:
         plt.title('Generated High Resolution Rainfall Data')
         plt.xlabel('Longitude')
         plt.ylabel('Latitude')
+        plt.show()
+        
+    @staticmethod
+    def visualize_master(SR_data,LR_data,SR_mask,LR_mask,HR_mask,Generator,dmax):
+        HR = Generator(np.array(SR_data).reshape((1,128,128,1)))
+        HR = np.array(HR).reshape(512,512)
+        HR[HR_mask.reshape(512,512)] = np.nan
+        lat25 = np.load('/kaggle/input/coordinates-imd/0.25lat.npy')
+        lon25 = np.load('/kaggle/input/coordinates-imd/0.25lon.npy')[4:-4]
+        lon = np.arange(len(lon25) * 4)
+        lat = np.arange(len(lat25) * 4)
+        X_HR, Y_HR = np.meshgrid(lon, lat)
+        LR_data_c = np.copy(LR_data)
+        LR_data_c[LR_mask] = np.nan
+        lat1 = np.load('/kaggle/input/coordinates-imd/1lat.npy')
+        lon1 = np.load('/kaggle/input/coordinates-imd/1lon.npy')[1:-1]
+        X_LR, Y_LR = np.meshgrid(lon1, lat1)
+        SR_data_c = np.copy(SR_data)
+        SR_data_c[SR_mask] = np.nan
+        SR_max = np.nanmax(SR_data_c, axis=(0,1))
+        LR_max = np.nanmax(LR_data_c, axis=(0,1))
+        HR_max = np.nanmax(HR, axis=(0,1))
+        SR_data_c /= SR_max
+        LR_data_c /= LR_max
+        HR /= HR_max
+        lat25 = np.load('/kaggle/input/coordinates-imd/0.25lat.npy')
+        lon25 = np.load('/kaggle/input/coordinates-imd/0.25lon.npy')[4:-4]
+        X_SR, Y_SR = np.meshgrid(lon25, lat25)
+        fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+        contour1 = axes[0].contourf(X_LR, Y_LR, LR_data_c*dmax, cmap='Blues')
+        axes[0].set_title('Low Resolution Rainfall Data')
+        axes[0].set_xlabel('Longitude')
+        axes[0].set_ylabel('Latitude')
+        fig.colorbar(contour1, ax=axes[0], label='Rainfall (mm/day)')
+        contour2 = axes[1].contourf(X_SR, Y_SR, SR_data_c*dmax, cmap='Blues')
+        axes[1].set_title('High Resolution Rainfall Data')
+        axes[1].set_xlabel('Longitude')
+        axes[1].set_ylabel('Latitude')
+        fig.colorbar(contour2, ax=axes[1], label='Rainfall (mm/day)')
+        contour3 = axes[2].contourf(X_HR, Y_HR, HR*dmax, cmap='Blues')
+        axes[2].set_title('Generated High Resolution Rainfall Data')
+        axes[2].set_xlabel('Longitude')
+        axes[2].set_ylabel('Latitude')
+        fig.colorbar(contour3, ax=axes[2], label='Rainfall (mm/day)')
+        plt.tight_layout()
         plt.show()
 
 class Training:
